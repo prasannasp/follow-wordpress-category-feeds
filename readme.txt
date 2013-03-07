@@ -1,21 +1,22 @@
 === Follow WordPress Category Feeds ===
-Contributors: prasannasp 
+Contributors: prasannasp
 Donate link: http://www.prasannasp.net/donate
-License: GPLv3
-License URI: http://www.gnu.org/copyleft/gpl.html
-Tags: categories, RSS, feed, follow, subscribe
+Tags: categories, RSS, feed, link, follow, subscribe, post, category
 Requires at least: 3.1
-Tested up to: 3.4.2
-Stable tag: 2.1.2
+Tested up to: 3.5.1
+Stable tag: 2.1.3
+License: GPLv2 or later
+License URI: http://www.gnu.org/copyleft/gpl.html
 
-This plugin adds category feed links after post content on single posts.
+This plugin adds link for the category feeds after post content.
 
 == Description ==
+
 Just like the normal Wordpress site feed, wordpress categories and tags also has feeds. The category feed is located at `site.url/category/categoryname/feed`. This plugin automatically adds the RSS feed link to the current post categories after the post content. By default the plugin shows category feed link on single posts. You can change it's settings to show it on other pages, such as archives as well. You can change it's title in WP-Admin --> Settings --> Follow Category Feeds.
 
-Visit <a href="http://www.prasannasp.net/wordpress-plugins/">this page</a> for more <strong>WordPress Plugins</strong> from the developer.
+Visit [this page](http://www.prasannasp.net/wordpress-plugins/) for more **WordPress Plugins** from the developer.
 
-Visit <a href="http://www.prasannasp.net/">developer's blog</a> for more information on WordPress and plugins.
+Visit [developer's blog](http://www.prasannasp.net/) for more information on WordPress and plugins.
 
 == Installation ==
 
@@ -31,6 +32,10 @@ Visit <a href="http://www.prasannasp.net/">developer's blog</a> for more informa
 2. Plugin Options Page
 
 == Changelog ==
+
+= 2.1.3 =
+
+* Added option to include `rel="nofollow"` in links.
 
 = 2.1.2 =
 
@@ -64,5 +69,3 @@ Visit <a href="http://www.prasannasp.net/">developer's blog</a> for more informa
 * Initial public release
 
 == Upgrade Notice ==
-
-* Version 1.0 has a deprecated function and there is a bug in version 1.1. So, please update to the latest version (2.0 or later)

@@ -3,7 +3,7 @@
 Plugin Name: Follow Category Feeds
 Plugin URI: http://www.prasannasp.net/follow-wordpress-category-feeds-plugin/
 Description: This plugin adds link to RSS feed for the current post categories after post content. RSS feed link for categories are usually /category/categoryname/feed. Make sure you are not redirecting your category feeds to feedburner before activating this plugin.
-Version: 2.1.2
+Version: 2.1.3
 Author: Prasanna SP
 Author URI: http://www.prasannasp.net/
 */
@@ -26,12 +26,18 @@ Author URI: http://www.prasannasp.net/
 */
 
 function fwcf_get_cat_feed_links() {
+$options = get_option('fwcf_options');
+	if (isset($options['rel_nofollow']))
+ 	{
+	$rel = 'rel="nofollow"'; 
+	}
+
 $cats = get_the_category();
 foreach ($cats as $cat) {
-$catfeedlinks[] = '<a href="'
+$catfeedlinks[] = '<a '.$rel.' href="'
 .get_category_feed_link($cat->cat_ID,'')
 .'">'.$cat->cat_name.'</a>';
-}
+	}
 return implode(', ', $catfeedlinks);
 }
 
@@ -39,12 +45,11 @@ function fwcf_add_to_post_footer($content) {
 	$options = get_option('fwcf_options');
 	$followcatstext = $options['follow_cats_txt'];
 
- if (isset($options['on_other_pages']) && !(is_page() || is_attachment()) || is_single() )
- {
+	if (isset($options['on_other_pages']) && !(is_page() || is_attachment()) || is_single() )
+		{
 		$content .= '<p class="follow-cat-feed"> '.$followcatstext.' '.fwcf_get_cat_feed_links().'</p>'; 
-			}
+		}
 	return $content;
-
 }
 
 add_filter('the_content', 'fwcf_add_to_post_footer');
@@ -107,11 +112,17 @@ function fwcf_options_page_form() {
 						<span class="description">By default the plugin shows category feed link on single post only. Selecting this will add category feed links to posts on other pages, such as blog page and archives where full content is shown.</span> </label><br />
 					</td>
 				</tr>
+				<tr valign="top">
+					<th scope="row">Add rel="nofollow" to feed links?</th>
+					<td>
+						<label><input name="fwcf_options[rel_nofollow]" type="checkbox" value="1" <?php if (isset($options['rel_nofollow'])) { checked('1', $options['rel_nofollow']); } ?> /> </label><br />
+					</td>
+				</tr>
 				<tr><td colspan="2"><div style="margin-top:10px;"></div></td></tr>
 				<tr valign="top" style="border-top:#dddddd 1px solid;">
 					<th scope="row">Database Options:</th>
 					<td>
-						<label><input name="fwcf_options[fwcf_default_options_db]" type="checkbox" value="1" <?php if (isset($options['fwcf_default_options_db'])) { checked('1', $options['fwcf_default_options_db']); } ?> />Restore defaults upon plugin deactivation/reactivation</label>
+						<label><input name="fwcf_options[fwcf_default_options_db]" type="checkbox" value="1" <?php if (isset($options['fwcf_default_options_db'])) { checked('1', $options['fwcf_default_options_db']); } ?> /> Restore defaults upon plugin deactivation/reactivation</label>
 						<br /><span style="color:#666666;margin-left:2px;">Only check this if you want to reset plugin settings upon Plugin reactivation</span>
 					</td>
 				</tr>
